@@ -39,7 +39,7 @@ def algorithm(csv_row: str, context: dict[str, Any],):
     if csv_row.find('xbt') != -1:
         prices.append(float(price))
         if pricesnew[0] < pricesnew[-1]:
-            yield Trade(BUY, 'xbt', Decimal(1))
+            yield Trade(BUY, 'xbt', Decimal(3))
 
         elif pricesnew[0] > pricesnew[-1]:
             yield Trade(SELL, 'xbt', Decimal(3))
@@ -51,9 +51,9 @@ def algorithm(csv_row: str, context: dict[str, Any],):
     if csv_row.find('eth') != -1:
         prices2.append(float(price))
         if pricesnew2[0] < pricesnew2[-1]:
-            yield Trade(BUY, 'eth', Decimal(1))
+            yield Trade(BUY, 'eth', Decimal(6))
         elif pricesnew2[0] > pricesnew2[-1]:
-            yield Trade(SELL, 'eth', Decimal(1))
+            yield Trade(SELL, 'eth', Decimal(6))
         else:
             yield None
 
