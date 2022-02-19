@@ -79,9 +79,9 @@ def algorithm(csv_row: str, context: dict[str, Any],):
             yield None
     if csv_row.find('eth') != -1:
         if int(price) < 2500:
-            yield Trade(BUY, 'xbt', Decimal(1))
+            yield Trade(BUY, 'eth', Decimal(1))
         elif int(price) > 3500:
-            yield Trade(SELL, 'xbt', Decimal(1))
+            yield Trade(SELL, 'eth', Decimal(1))
         else:
             yield None
     response = yield None # example: Trade(BUY, 'xbt', Decimal(1))
