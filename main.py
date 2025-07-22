@@ -28,6 +28,8 @@ STREAM = CSVStream(
      bucket=BUCKET,
      expression=SELECT_ALL_QUERY,)
 def algorithm(csv_row: str, context: dict[str, Any],):
+    wallet = 1000000
+    bitcoin = 0
     data = csv_row.split(',')
     price = data[1]
     if len(prices) > 20:
@@ -39,23 +41,29 @@ def algorithm(csv_row: str, context: dict[str, Any],):
     if csv_row.find('xbt') != -1:
         prices.append(float(price))
         if pricesnew[0] < pricesnew[-1]:
-            yield Trade(BUY, 'xbt', Decimal(3))
+            #if bitcoin == 0:
+               ##else:
+            wallet += float(price)
+            bitcoin -= 1
+            return "SELL"
 
         elif pricesnew[0] > pricesnew[-1]:
-            yield Trade(SELL, 'xbt', Decimal(3))
+            bitcoin += 1
+            wallet -= float(price)
+            return "BUY", wallet
         else:
-            yield None
+            return "NONE"
 
     if len(prices2) > 20:
         pricesnew2 = prices2[(len(prices) // 2):]
     if csv_row.find('eth') != -1:
         prices2.append(float(price))
         if pricesnew2[0] < pricesnew2[-1]:
-            yield Trade(BUY, 'eth', Decimal(6))
+            return "BUY"
         elif pricesnew2[0] > pricesnew2[-1]:
-            yield Trade(SELL, 'eth', Decimal(6))
+            return "SELL"
         else:
-            yield None
+            return "NONE"
 
 if __name__ == '__main__':
      prices2 = []
